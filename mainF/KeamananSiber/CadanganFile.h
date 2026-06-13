@@ -6,13 +6,16 @@
 
 class CadanganFile {
     private:
-        NodeCadangan* top;  
+        NodeCadangan* top;
+        static const int MAX_BACKUP = 50;
+
     public:
         CadanganFile();
         ~CadanganFile();
-        void pushBackup(const std::string File,std::string TeksAsli);
+        void pushBackup(const std::string File, std::string TeksAsli);
         NodeCadangan* popBackup();
         bool isEmpty() const;
+        bool isFull() const;
         void cetakCadangan() const;
 };
 #endif

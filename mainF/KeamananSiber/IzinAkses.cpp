@@ -18,6 +18,14 @@
 
     //Fungsi insert untuk menyisipkan aturan akses baru ke barisan paling depan linked list
     void IzinAkses::daftarkanHakAkses(const std::string& User, const std::string& folder) {
+        NodeAkses* current = daftarAturan;
+        while (current != nullptr) {
+            if (current->namaUser == User && current->folderIzin == folder) {
+                return;
+            }
+            current = current->next;
+        }
+
         NodeAkses* newNode = new NodeAkses;
         newNode->namaUser = User;
         newNode->folderIzin = folder;

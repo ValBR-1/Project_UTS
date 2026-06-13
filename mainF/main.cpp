@@ -54,6 +54,14 @@ int main() {
                 getline(cin, aktivitas.namaFile);
                 cout << "Bobot bahaya (0-10): ";
                 cin >> aktivitas.bobotBahaya;
+
+                if (cin.fail() || aktivitas.bobotBahaya < 0 || aktivitas.bobotBahaya > 10) {
+                    cin.clear();
+                    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                    cout << "Bobot bahaya harus berada dalam rentang 0-10." << endl;
+                    break;
+                }
+
                 antreanTrafic.masukkanLog(aktivitas);
                 cout << "Log aktivitas berhasil dicatat." << endl;
                 break;
@@ -139,14 +147,19 @@ int main() {
                     getline(cin, namaFile);
                     cout << "Isi teks asli: ";
                     getline(cin, isiTeks);
-                    stackSnapshot.pushBackup(namaFile, isiTeks);
-                    cout << "Backup berhasil disimpan." << endl;
+                    try {
+                        stackSnapshot.pushBackup(namaFile, isiTeks);
+                        cout << "Backup berhasil disimpan." << endl;
+                    } catch (const exception& e) {
+                        cout << e.what() << endl;
+                    }
                 } else if (subPilihan == 2) {
                     stackSnapshot.cetakCadangan();
                 } else if (subPilihan == 3) {
                     try {
                         NodeCadangan* backup = stackSnapshot.popBackup();
                         cout << "Backup dipulihkan: " << backup->namaFile << endl;
+                        cout << "Isi teks asli: " << backup->isiTeksAsli << endl;
                         delete backup;
                     } catch (const exception& e) {
                         cout << e.what() << endl;

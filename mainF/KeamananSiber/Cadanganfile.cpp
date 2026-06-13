@@ -18,8 +18,22 @@ bool CadanganFile::isEmpty() const {
     return top == nullptr;
 }
 
+bool CadanganFile::isFull() const {
+    int count = 0;
+    NodeCadangan* current = top;
+    while (current != nullptr) {
+        ++count;
+        current = current->next;
+    }
+    return count >= MAX_BACKUP;
+}
+
 //Fungsi push untuk menambahkan backup file baru ke atas stack LIFO
 void CadanganFile::pushBackup(const std::string File, std::string TeksAsli) {
+    if (isFull()) {
+        throw std::runtime_error("Batas maksimum backup (50) sudah tercapai!");
+    }
+
     NodeCadangan* newNode = new NodeCadangan;
     newNode->namaFile = File;
     newNode->isiTeksAsli = TeksAsli;
