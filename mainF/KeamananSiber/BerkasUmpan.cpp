@@ -19,6 +19,7 @@ bool BerkasUmpan::periksaUmpan(const std::string& namaFileTarget) const {
     return false;
 }
 
+// Fungsi untuk menampilkan seluruh file honeypot yang sedang dipantau.
 void BerkasUmpan::cetakDaftarUmpan() const {
     std::cout << "\n[SISTEM] Monitoring File Jebakan aktif:\n";
     for (int i = 0; i < KAPASITAS_UMPAN; i++) {

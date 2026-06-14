@@ -4,6 +4,7 @@
 #include "../modelSistem.h"
 #include <string>
 
+// Class untuk mendeteksi file honeypot berdasarkan daftar file jebakan.
 class BerkasUmpan {
 private:
  // Kapasitas maksimum umpan

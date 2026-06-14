@@ -4,6 +4,7 @@
 #include "../modelSistem.h"
 #include <string>
 
+// Class untuk mengelola daftar izin akses pengguna dengan linked list.
 class IzinAkses {
 private:
     NodeAkses* daftarAturan;

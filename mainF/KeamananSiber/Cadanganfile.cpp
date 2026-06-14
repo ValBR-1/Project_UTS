@@ -14,10 +14,12 @@ CadanganFile::~CadanganFile() {
     }
 }
 
+// Fungsi bantu untuk mengetahui apakah stack backup masih kosong.
 bool CadanganFile::isEmpty() const {
     return top == nullptr;
 }
 
+// Fungsi bantu untuk mengecek apakah jumlah backup sudah mencapai batas maksimum.
 bool CadanganFile::isFull() const {
     int count = 0;
     NodeCadangan* current = top;
@@ -52,6 +54,7 @@ NodeCadangan* CadanganFile::popBackup() {
     return temp; 
 }
 
+// Fungsi untuk menampilkan isi seluruh backup yang tersimpan saat ini.
 void CadanganFile::cetakCadangan() const {
     std::cout << "\n[DAFTAR CADANGAN FILE]:\n";
     NodeCadangan* current = top;

@@ -4,12 +4,14 @@
 #include "../modelSistem.h"
 #include <string>
 
+// Class untuk menyimpan backup file menggunakan struktur stack LIFO.
 class CadanganFile {
     private:
         NodeCadangan* top;
         static const int MAX_BACKUP = 50;
 
     public:
+        // Menginisialisasi stack backup kosong.
         CadanganFile();
         ~CadanganFile();
         void pushBackup(const std::string File, std::string TeksAsli);

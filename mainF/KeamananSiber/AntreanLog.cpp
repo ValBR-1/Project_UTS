@@ -15,10 +15,12 @@ AntreanLog::~AntreanLog() {
     }
 }
 
+// Fungsi bantu untuk memeriksa apakah antrean log masih kosong.
 bool AntreanLog::isEmpty() const {
     return head == nullptr;
 }
 
+// Fungsi bantu untuk melihat banyak data yang tersimpan dalam antrean.
 int AntreanLog::getTotalAntrean() const {
     return totalAntrean;
 }

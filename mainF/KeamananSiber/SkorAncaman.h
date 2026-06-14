@@ -4,6 +4,7 @@
 #include <string>
 #include "../modelSistem.h"
 
+// Class untuk menyimpan dan menganalisis skor ancaman menggunakan BST.
 class SkorAncaman {
 private:
    NodeTree* root;

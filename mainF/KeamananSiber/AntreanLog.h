@@ -3,6 +3,7 @@
 #include "../modelSistem.h"
 
 
+// Class untuk mengelola antrean log aktivitas pengguna dengan prinsip FIFO.
 class AntreanLog {
 private:
     

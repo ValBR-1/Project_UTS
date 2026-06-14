@@ -33,7 +33,7 @@
         daftarAturan = newNode;
     }
 
-    //fugnsi untuk validasi akses user dengan melakukan pencarian linear pada linked list
+    //fungsi untuk validasi akses user dengan melakukan pencarian linear pada linked list
     bool IzinAkses::validasiAksesUser(const std::string& User, const std::string& folder) {
         NodeAkses* current = daftarAturan;
         while (current != nullptr) {

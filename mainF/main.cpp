@@ -17,12 +17,14 @@ int main() {
     CadanganFile stackSnapshot;
     SkorAncaman bstAnalsytic;
 
+    // Data awal untuk simulasi sistem izin akses.
     firewallACL.daftarkanHakAkses("Jamal", "Folder_Riset");
     firewallACL.daftarkanHakAkses("Udin", "Folder_Slide");
     firewallACL.daftarkanHakAkses("Asep", "Folder_Video");
 
     int pilihanMenu = -1;
 
+    // Menu utama sistem keamanan siber.
     do {
         cout << "\n=== Sistem Keamanan Siber ===" << endl;
         cout << "1. Catat Aktivitas Pengguna" << endl;
@@ -43,6 +45,7 @@ int main() {
         }
 
         switch (pilihanMenu) {
+            // Menangkap aktivitas pengguna dan menyimpannya ke antrean log.
             case 1: {
                 CatatanAktivitas aktivitas;
                 cout << "Nama pengguna: ";
@@ -66,6 +69,7 @@ int main() {
                 cout << "Log aktivitas berhasil dicatat." << endl;
                 break;
             }
+            // Menampilkan log aktivitas yang tersimpan dalam antrean.
             case 2: {
                 if (antreanTrafic.isEmpty()) {
                     cout << "Belum ada log aktivitas." << endl;
@@ -81,6 +85,7 @@ int main() {
                 }
                 break;
             }
+            // Memeriksa apakah file target termasuk dalam daftar honeypot.
             case 3: {
                 string namaFile;
                 cout << "Masukkan nama file yang akan diuji: ";
@@ -94,6 +99,7 @@ int main() {
                 detectorHoneypot.cetakDaftarUmpan();
                 break;
             }
+            // Mengelola hak akses pengguna melalui linked list.
             case 4: {
                 int subPilihan;
                 cout << "\n[Kelola Izin Akses]" << endl;
@@ -131,6 +137,7 @@ int main() {
                 }
                 break;
             }
+            // Mengelola backup file dengan mekanisme stack LIFO.
             case 5: {
                 int subPilihan;
                 cout << "\n[Kelola Cadangan File]" << endl;
@@ -169,6 +176,7 @@ int main() {
                 }
                 break;
             }
+            // Menerima skor ancaman dan menampilkan hasil analisis BST.
             case 6: {
                 string user;
                 int skor;
