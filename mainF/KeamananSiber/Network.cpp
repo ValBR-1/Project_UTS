@@ -34,12 +34,12 @@ void Network::addDevice(std::string namaDevice, std::string tipeDevice, int vuln
 
 //Fungsi untuk menambahkan koneksi antara dua perangkat dalam jaringan
 void Network::addLink(int srcId, int destId){
-    if(srcId >= devCount || destId >= devCount) return;
+    if(srcId >= devCount || destId >= devCount || srcId == destId) return;
 
     connection* newconn = new connection;
     newconn->destId = destId;
     newconn->next = devices[srcId].connHead;
-    devices[destId].connHead = newconn;
+    devices[srcId].connHead = newconn;
 }
 
 //Fungsi untuk menampilkan topologi jaringan dan koneksi antar perangkat
@@ -134,7 +134,7 @@ void Network::prioritizeIsolation(){
     for(int i =0; i < devCount; i++) temp[i] = devices[i];
     for (int i = 0; i < devCount - 1; i++){
         int maxIdx = i;
-        for (int j = i + 1; j < devCount - 1; j++){
+        for (int j = i + 1; j < devCount; j++){
             if(temp[j].vulnScore > temp[maxIdx].vulnScore) maxIdx = j;
         }
         device swap = temp[i];
@@ -143,6 +143,7 @@ void Network::prioritizeIsolation(){
     }
 
     for (int i = 0; i < devCount; i++){
-        std::cout << " Prioritas [" << i+1 << "] -> " << temp[i].vulnScore << "/100\n";
+        std::cout << " Prioritas [" << i+1 << "] -> " << temp[i].namaDevice
+                  << " (" << temp[i].vulnScore << "/100)\n";
     }
 }
