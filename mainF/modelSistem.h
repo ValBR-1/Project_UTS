@@ -33,4 +33,18 @@ struct NodeTree{
     NodeTree* right;
 };
 
+// Struktur untuk merepresentasikan koneksi antar perangkat dalam jaringan.
+struct connection{
+    int destId;
+    connection* next;
+};
+
+// Struktur untuk merepresentasikan perangkat dalam jaringan.
+struct device{
+    std::string namaDevice;
+    std::string tipeDevice;
+    int vulnScore;
+    connection* connHead;
+};
+
 #endif

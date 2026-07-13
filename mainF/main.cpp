@@ -7,6 +7,7 @@
 #include "KeamananSiber/IzinAkses.h"
 #include "KeamananSiber/CadanganFile.h"
 #include "KeamananSiber/SkorAncaman.h"
+#include "KeamananSiber/Network.h"
 
 using namespace std;
 
@@ -16,11 +17,28 @@ int main() {
     IzinAkses firewallACL;
     CadanganFile stackSnapshot;
     SkorAncaman bstAnalsytic;
+    Network net;
 
     // Data awal untuk simulasi sistem izin akses.
     firewallACL.daftarkanHakAkses("Jamal", "Folder_Riset");
     firewallACL.daftarkanHakAkses("Udin", "Folder_Slide");
     firewallACL.daftarkanHakAkses("Asep", "Folder_Video");
+
+    // Data awal untuk simulasi jaringan perangkat.
+    net.addDevice("Router Utama", "ROUTER", 15);
+    net.addDevice("Server Pusat", "SERVER", 90);
+    net.addDevice("PC Jamal", "PC_USER", 45);
+    net.addDevice("PC Udin", "PC_USER", 65);
+    net.addDevice("PC Asep", "PC_USER", 30);
+    net.addDevice("Backup Cloud", "SERVER", 10);
+
+    // Menambahkan koneksi antar perangkat dalam jaringan.
+    net.addLink(0,2);
+    net.addLink(0,3);
+    net.addLink(0,4);
+    net.addLink(2,1);
+    net.addLink(3,1);
+    net.addLink(1,5);
 
     int pilihanMenu = -1;
 
@@ -33,6 +51,7 @@ int main() {
         cout << "4. Kelola Izin Akses" << endl;
         cout << "5. Kelola Cadangan File" << endl;
         cout << "6. Analisis Skor Ancaman" << endl;
+        cout << "7. Audi & Respon Insiden Jaringan" << endl;
         cout << "0. Keluar" << endl;
         cout << "Pilih menu: ";
         cin >> pilihanMenu;
@@ -82,6 +101,7 @@ int main() {
                          << " | Tindakan: " << log.tindakan
                          << " | File: " << log.namaFile
                          << " | Bahaya: " << log.bobotBahaya << endl;
+                    bstAnalsytic.inputSkorAncaman(log.namaUser, log.bobotBahaya);
                 }
                 break;
             }
@@ -137,6 +157,7 @@ int main() {
                 }
                 break;
             }
+            
             // Mengelola backup file dengan mekanisme stack LIFO.
             case 5: {
                 int subPilihan;
@@ -176,6 +197,7 @@ int main() {
                 }
                 break;
             }
+
             // Menerima skor ancaman dan menampilkan hasil analisis BST.
             case 6: {
                 string user;
@@ -190,6 +212,44 @@ int main() {
                 cout << "\nUrutan ancaman dari yang paling aman ke paling berbahaya:" << endl;
                 bstAnalsytic.cetakUrutanBahaya();
                 bstAnalsytic.deteksiAncamanTertinggi();
+                break;
+            }
+
+            // Menangani audit dan respon insiden jaringan.
+            case 7: {
+                int subPilihan;
+                cout << "\n[Audit dan Respon Insiden Jaringan]" << endl;
+                cout << "1. Tampilkan Topologi koneksi aktif" << endl;
+                cout << "2. Scan radius dampak infeksi" << endl;
+                cout << "3. Trace rute infiltrasi terobos" << endl;
+                cout << "4. Audit detail log perangkat" << endl;
+                cout << "5. Urutkan prioritas isolasi darurat" << endl;
+                cout << "Pilih sub menu : ";
+                cin >> subPilihan;
+
+                if (subPilihan == 1){
+                    net.printTopology();
+                }else if (subPilihan == 2){
+                    int id;
+                    cout << "Masukkan ID titik awal infeksi (0 - 5) : ";
+                    cin >> id;
+                    net.scanSpread(id);
+                }else if (subPilihan == 3){
+                    int id;
+                    cout << "Masukkan ID pintu masuk ancaman (0 - 5) : ";
+                    cin >> id;
+                    net.traceBreach(id);
+                }else if(subPilihan == 4){
+                    string targetName;
+                    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                    cout << "Nama perangkat yang di audit : ";
+                    getline(cin, targetName);
+                    net.auditDevice(targetName);
+                }else if (subPilihan == 5){
+                    net.prioritizeIsolation();
+                }else{
+                    cout << "Pilihan menu tidak valid" << endl;
+                }
                 break;
             }
             case 0:
