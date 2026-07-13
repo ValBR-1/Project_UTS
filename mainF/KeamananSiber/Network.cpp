@@ -36,6 +36,14 @@ void Network::addDevice(std::string namaDevice, std::string tipeDevice, int vuln
 void Network::addLink(int srcId, int destId){
     if(srcId >= devCount || destId >= devCount || srcId == destId) return;
 
+    connection* current = devices[srcId].connHead;
+    while (current != nullptr) {
+        if (current->destId == destId) {
+            return;
+        }
+        current = current->next;
+    }
+
     connection* newconn = new connection;
     newconn->destId = destId;
     newconn->next = devices[srcId].connHead;

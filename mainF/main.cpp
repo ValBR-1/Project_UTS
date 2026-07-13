@@ -11,6 +11,15 @@
 
 using namespace std;
 
+bool validasiInputInt(int& nilai) {
+    if (!(cin >> nilai)) {
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        return false;
+    }
+    return true;
+}
+
 int main() {
     AntreanLog antreanTrafic;
     BerkasUmpan detectorHoneypot;
@@ -51,7 +60,7 @@ int main() {
         cout << "4. Kelola Izin Akses" << endl;
         cout << "5. Kelola Cadangan File" << endl;
         cout << "6. Analisis Skor Ancaman" << endl;
-        cout << "7. Audi & Respon Insiden Jaringan" << endl;
+        cout << "7. Audit & Respon Insiden Jaringan" << endl;
         cout << "0. Keluar" << endl;
         cout << "Pilih menu: ";
         cin >> pilihanMenu;
@@ -75,11 +84,12 @@ int main() {
                 cout << "Nama file: ";
                 getline(cin, aktivitas.namaFile);
                 cout << "Bobot bahaya (0-10): ";
-                cin >> aktivitas.bobotBahaya;
+                if (!validasiInputInt(aktivitas.bobotBahaya)) {
+                    cout << "Bobot bahaya harus berupa angka." << endl;
+                    break;
+                }
 
-                if (cin.fail() || aktivitas.bobotBahaya < 0 || aktivitas.bobotBahaya > 10) {
-                    cin.clear();
-                    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                if (aktivitas.bobotBahaya < 0 || aktivitas.bobotBahaya > 10) {
                     cout << "Bobot bahaya harus berada dalam rentang 0-10." << endl;
                     break;
                 }
@@ -127,7 +137,10 @@ int main() {
                 cout << "2. Tampilkan daftar izin" << endl;
                 cout << "3. Validasi akses" << endl;
                 cout << "Pilih sub menu: ";
-                cin >> subPilihan;
+                if (!validasiInputInt(subPilihan)) {
+                    cout << "Input tidak valid. Silakan masukkan angka." << endl;
+                    break;
+                }
 
                 if (subPilihan == 1) {
                     string user, folder;
@@ -157,7 +170,7 @@ int main() {
                 }
                 break;
             }
-            
+
             // Mengelola backup file dengan mekanisme stack LIFO.
             case 5: {
                 int subPilihan;
@@ -166,7 +179,10 @@ int main() {
                 cout << "2. Tampilkan backup" << endl;
                 cout << "3. Pulihkan backup teratas" << endl;
                 cout << "Pilih sub menu: ";
-                cin >> subPilihan;
+                if (!validasiInputInt(subPilihan)) {
+                    cout << "Input tidak valid. Silakan masukkan angka." << endl;
+                    break;
+                }
 
                 if (subPilihan == 1) {
                     string namaFile, isiTeks;
@@ -206,7 +222,10 @@ int main() {
                 cin.ignore(numeric_limits<streamsize>::max(), '\n');
                 getline(cin, user);
                 cout << "Skor ancaman: ";
-                cin >> skor;
+                if (!validasiInputInt(skor)) {
+                    cout << "Input tidak valid. Skor ancaman harus berupa angka." << endl;
+                    break;
+                }
                 bstAnalsytic.inputSkorAncaman(user, skor);
                 cout << "Skor ancaman berhasil ditambahkan." << endl;
                 cout << "\nUrutan ancaman dari yang paling aman ke paling berbahaya:" << endl;
@@ -225,19 +244,28 @@ int main() {
                 cout << "4. Audit detail log perangkat" << endl;
                 cout << "5. Urutkan prioritas isolasi darurat" << endl;
                 cout << "Pilih sub menu : ";
-                cin >> subPilihan;
+                if (!validasiInputInt(subPilihan)) {
+                    cout << "Input tidak valid. Silakan masukkan angka." << endl;
+                    break;
+                }
 
                 if (subPilihan == 1){
                     net.printTopology();
                 }else if (subPilihan == 2){
                     int id;
                     cout << "Masukkan ID titik awal infeksi (0 - 5) : ";
-                    cin >> id;
+                    if (!validasiInputInt(id)) {
+                        cout << "Input tidak valid. ID harus berupa angka." << endl;
+                        break;
+                    }
                     net.scanSpread(id);
                 }else if (subPilihan == 3){
                     int id;
                     cout << "Masukkan ID pintu masuk ancaman (0 - 5) : ";
-                    cin >> id;
+                    if (!validasiInputInt(id)) {
+                        cout << "Input tidak valid. ID harus berupa angka." << endl;
+                        break;
+                    }
                     net.traceBreach(id);
                 }else if(subPilihan == 4){
                     string targetName;

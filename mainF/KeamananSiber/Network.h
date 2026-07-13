@@ -1,5 +1,5 @@
 #ifndef NETWORK_H
-#define NERWORK_H
+#define NETWORK_H
 
 #include "../modelSistem.h"
 #include <string>
